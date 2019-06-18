@@ -1,0 +1,29 @@
+{
+  "name": "bamazon",
+  "version": "1.0.1",
+  "description": "The package for the BAMAZON APP",
+  "main": "bamazonCustomer.js",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "chalk-animation": "^1.6.0",
+    "inquirer": "^6.3.1",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/archivecoderzero/bamazon.git"
+  },
+  "keywords": [
+    "bamazon"
+  ],
+  "author": "ArchiveCoderZero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/archivecoderzero/bamazon/issues"
+  },
+  "homepage": "https://github.com/archivecoderzero/bamazon#readme"
+}
