@@ -25,17 +25,49 @@ const neon = chalkAnimation.neon(str);
 setInterval(() => {
     neon.replace(str += '.');
 }, 100);
+
+setTimeout(() => {
+    neon.stop(); // Animation stops
+}, 1000);
+
+
 setTimeout(() => {
 
     // START THE FUNCTION HERE : 
+    prompt();
 
 
     // START THE FUNCTION HERE : 
 
 
-}, 5000); 
+}, 2000); 
 
 
 }
+
+
+function prompt(){
+    inquirer
+      .prompt({
+        name: "view",
+        type: "list",
+        message: "Would you like to [POST] an auction or [BID] on an auction?",
+        choices: ["CUSTOMER VIEW", "MANAGER VIEW", "SUPERVISOR VIEW"]
+      })
+      .then(function(answer) {
+        if (answer.view === "CUSTOMER VIEW") {
+         console.log("CUSTOMER VIEW test")
+        }
+        else if(answer.view === "MANAGER VIEW") {
+            console.log("MANAGER VIEW test")
+        } else{
+            console.log("SUPERVISOR VIEW test")
+        }
+      });
+  }
+  
+
+    
+
 
   
