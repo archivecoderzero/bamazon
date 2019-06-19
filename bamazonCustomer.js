@@ -13,7 +13,6 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
   });
-
 console.log("INITIALIZE");
 initializeAnimation() ;
 
@@ -21,18 +20,22 @@ initializeAnimation() ;
 
 function initializeAnimation() {
 let str = 'NOW LOADING';
-const rainbow = chalkAnimation.rainbow(str);
+const neon = chalkAnimation.neon(str);
  
-// Add a new dot every second
 setInterval(() => {
-    rainbow.replace(str += '.');
-}, 1000);
+    neon.replace(str += '.');
+}, 100);
+setTimeout(() => {
+
+    // START THE FUNCTION HERE : 
+
+
+    // START THE FUNCTION HERE : 
+
+
+}, 5000); 
+
 
 }
-let str = 'NOW LOADING';
-const rainbow = chalkAnimation.rainbow(str);
- 
-// Add a new dot every second
-setInterval(() => {
-    rainbow.replace(str += '.');
-}, 1000);
+
+  
