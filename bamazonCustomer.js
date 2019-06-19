@@ -56,7 +56,8 @@ function prompt(){
       })
       .then(function(answer) {
         if (answer.view === "CUSTOMER VIEW") {
-         console.log("CUSTOMER VIEW test")
+         console.log("CUSTOMER VIEW test");
+         customerView();
         }
         else if(answer.view === "MANAGER VIEW") {
             console.log("MANAGER VIEW test")
@@ -64,6 +65,47 @@ function prompt(){
             console.log("SUPERVISOR VIEW test")
         }
       });
+
+      function customerView() {
+        // query the database for all items being auctioned
+        connection.query("SELECT * FROM products", function(err, results) {
+          if (err) throw err;
+          // once you have the items, prompt the user for which they'd like to bid on
+          inquirer
+            .prompt([
+              {
+                name: "choice",
+                type: "rawlist",
+                choices: function() {
+                  var choiceArray = [];
+                  for (var i = 0; i < results.length; i++) {
+                    choiceArray.push(results[i].item_name);
+                  }
+                  return choiceArray;
+                },
+                message: "What auction would you like to place a bid in?"
+              },
+              {
+                name: "bid",
+                type: "input",
+                message: "How much would you like to bid?"
+              }
+            ])
+          
+        });
+      }
+
+
+
+
+
+
+
+
+
+
+
+
   }
   
 
