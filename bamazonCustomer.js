@@ -61,40 +61,115 @@ function prompt(){
         }
         else if(answer.view === "MANAGER VIEW") {
             console.log("MANAGER VIEW test")
+            managerView();
+
         } else{
             console.log("SUPERVISOR VIEW test")
+            supervisorView();
+
         }
       });
 
-      function customerView() {
-        // query the database for all items being auctioned
-        connection.query("SELECT * FROM products", function(err, results) {
+
+      
+      
+      function customerView(){
+      
+      
+        connection.query('SELECT * FROM products', function(err, results){
           if (err) throw err;
-          // once you have the items, prompt the user for which they'd like to bid on
-          inquirer
-            .prompt([
-              {
-                name: "choice",
-                type: "rawlist",
-                choices: function() {
-                  var choiceArray = [];
-                  for (var i = 0; i < results.length; i++) {
-                    choiceArray.push(results[i].item_name);
+          console.log("WELCOME TO bAMAZON!");
+          console.log("add");
+
+      
+          for (var i = 0; i < results.length; i++) {
+            console.log("Product ID :" + results[i].item_id + "\t Item Name :" + results[i].product_name + "\t | PRICE :$" + results[i].price + "\tQUANTITY AVAILABLE : " + results[i].stock_quantity); 
+          }
+              inquirer.prompt([{
+                type: 'input',
+                name: 'item_id',
+                message: "Select an ID of the item you want to buy"
+      
+              }]).then(function(answer){
+                var item_id = parseInt(answer.item_id)
+      
+      
+                for (var i = 0; i < results.length; i++) {
+                  if(results[i].item_id == answer.item_id){
+                    var result = results[i]; 
+                    console.log('Total available : ' + result.stock_quantity + ' ' +result.product_name + '. For $' + result.price);
+      
+                    inquirer.prompt([{
+                      type: 'input',
+                      name: 'itemQuantity',
+                      message: 'How many ' + result.product_name + ' would you like to buy?'
+      
+                    }]).then(function(answer){
+                      var quantity = parseInt(answer.itemQuantity);
+                      
+                      if(quantity > result.stock_quantity){
+                        console.log("Sorry , we dont have enough of in stock of" +  result.product_name);
+                        inquirer.prompt([{
+                          type: 'confirm',
+                          name: 'shop',
+                          message: "is there anything else we can do for you?"
+      
+                        }]).then(function(answer){
+                          if(answer.shop){
+                            customerView();
+                          }else{
+                            console.log("Thank you! Come againe")
+                            connection.end();
+                          }
+                        })
+      
+                      }else{
+                        console.log("Your Total : ");
+      
+                        connection.query('UPDATE Products SET stock_quantity = stock_quantity - ? WHERE item_id = ?', [quantity, item_id], function(err, results){
+                          if (err) throw err;
+                        });
+      
+                        var cost = result.price;
+                        var totalCost = cost * quantity;
+                        var total = totalCost;
+                    
+      
+                        
+                        console.log("QUANTITY ORDERED: " + quantity + " " +result.product_name + '  at ' + "$" + cost);
+                        console.log("PRICE:  $" + total);
+                        console.log("Your Total : " + total);
+      
+                        inquirer.prompt([{
+                          type: 'confirm',
+                          name: 'shop',
+                          message: "Anything Else?"
+      
+                        }]).then(function(answer){
+                          if(answer.shop){
+                            customerView();
+                          }else{
+                            console.log("Thank you! Come again!")
+                            process.end();
+                          }
+                        })
+                        
+                      }
+                    })
                   }
-                  return choiceArray;
-                },
-                message: "What auction would you like to place a bid in?"
-              },
-              {
-                name: "bid",
-                type: "input",
-                message: "How much would you like to bid?"
-              }
-            ])
-          
+                }
+              })
+            
         });
+
       }
 
+
+      function managerView(){
+
+
+
+      }
 
 
 
