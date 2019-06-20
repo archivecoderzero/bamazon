@@ -51,7 +51,7 @@ function prompt(){
       .prompt({
         name: "view",
         type: "list",
-        message: "Would you like to [POST] an auction or [BID] on an auction?",
+        message: "Please select user",
         choices: ["CUSTOMER VIEW", "MANAGER VIEW", "SUPERVISOR VIEW"]
       })
       .then(function(answer) {
@@ -108,7 +108,7 @@ function prompt(){
                       var quantity = parseInt(answer.itemQuantity);
                       
                       if(quantity > result.stock_quantity){
-                        console.log("Sorry , we dont have enough of in stock of" +  result.product_name);
+                        console.log("Sorry , we dont have enough of in stock of " +  result.product_name);
                         inquirer.prompt([{
                           type: 'confirm',
                           name: 'shop',
