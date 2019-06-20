@@ -138,19 +138,19 @@ function prompt(){
                         
                         console.log("QUANTITY ORDERED: " + quantity + " " +result.product_name + '  at ' + "$" + cost);
                         console.log("PRICE:  $" + total);
-                        console.log("Your Total : " + total);
+                        console.log("Your Total : " + total + "thank you for your purchase");
       
                         inquirer.prompt([{
                           type: 'confirm',
                           name: 'shop',
-                          message: "Anything Else?"
+                          message: "Buy something again?"
       
                         }]).then(function(answer){
                           if(answer.shop){
                             customerView();
                           }else{
                             console.log("Thank you! Come again!")
-                            process.end();
+                            process.exit();
                           }
                         })
                         
